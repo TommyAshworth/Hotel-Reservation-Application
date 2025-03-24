@@ -1,37 +1,24 @@
 package edu.wgu.d387_sample_code.config;
 
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.context.annotation.Bean;
+
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 
+//Marks this class as a configuration class for Spring
 @Configuration
 public class ApiConfig implements  WebMvcConfigurer{
 
-//Not needing the object member is a change in recent versions of spring.
-
-//    @Bean
-//    public ObjectMapper objectMapper() {
-//        ObjectMapper objectMapper = new ObjectMapper();
-//        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-//        objectMapper.registerModule(new JavaTimeModule());
-//
-//
-//        return new ObjectMapper();
-//    }
-//
-//    @Bean
-//    public ObjectWriter objectWriter(ObjectMapper objectMapper) {
-//        return objectMapper.writerWithDefaultPrettyPrinter();
-//    }
-
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        //Configures Cross-Origin Resource sharing (CORS) settings for the API
+        registry.addMapping("/api/**") //Applies to any endpoint starting with /api
+                //Allows requests from this front end address
+                .allowedOrigins("http://localhost:4200")
+                // Permits GET and POST HTTP methods
+                .allowedMethods("GET", "POST");
+    }
 
 }

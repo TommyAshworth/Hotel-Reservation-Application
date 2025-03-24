@@ -21,12 +21,22 @@ export class AppComponent implements OnInit{
 
   private getUrl:string = this.baseURL + '/room/reservation/v1/';
   private postUrl:string = this.baseURL + '/room/reservation/v1';
+  //Defined a string variable 'welcomeUrl' that holds the complete URL for the 'welcome' GET mapping API endpoint.
+  private welcomeUrl:string = this.baseURL + '/api/welcome';
   public submitted!:boolean;
   roomsearch! : FormGroup;
   rooms! : Room[];
   request!:ReserveRoomRequest;
   currentCheckInVal!:string;
   currentCheckOutVal!:string;
+  //'welcomeMessages' is a string array that will hold the welcome messages returned from the GET request.
+  // The 'getWelcome()' method sends a GET request to the 'welcomeUrl' and expects a response of type string in JSON format.
+
+  welcomeMessages!:string[];
+
+  getWelcome(): Observable<string> {
+    return this.httpClient.get<string>(this.welcomeUrl,{responseType:'text' as 'json'});
+  }
 
     ngOnInit(){
       this.roomsearch= new FormGroup({
@@ -44,6 +54,14 @@ export class AppComponent implements OnInit{
       this.currentCheckInVal = x.checkin;
       this.currentCheckOutVal = x.checkout;
     });
+    // Subscribing to the 'getWelcome()' method to get the response from the GET request.
+    // The response (a JSON string) is parsed into a JavaScript array and assigned to 'welcomeMessages'.
+
+      this.getWelcome().subscribe(
+        (response) => {
+          this.welcomeMessages = JSON.parse(response);
+        }
+      );
   }
 
     onSubmit({value,valid}:{value:Roomsearch,valid:boolean}){
