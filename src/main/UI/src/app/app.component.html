@@ -77,6 +77,8 @@
                 <td>
                   <strong>Room #: {{room.roomNumber}}</strong><br/>
                   <strong>Price: ${{room.price}}</strong>
+                  <strong>Price: {{room.price | currency:'C'}}</strong>
+                  <strong>Price: {{room.price | currency:'€'}}</strong>
                 </td>
                 <td>
                   <button type="submit" class="btn btn-primary" (click)="reserveRoom(room.id)">Reserve</button>

@@ -244,6 +244,17 @@ Line 18: Use ngFor to iterate through messages array and display each message
 <div class="welcome"><span class="welcome-message" *ngFor="let message of welcomeMessages">{{message}}</span></div>
 
 ```
+# TASK B2:
+
+-Created a display for Canadian Dollars (C$) and Euro(€)
+-Modified `app.component.html`
+
+```
+<strong>Price: {{room.price | currency:'C'}}</strong>
+<strong>Price: {{room.price | currency:'€'}}</strong>
+
+```
+
 
 
 
