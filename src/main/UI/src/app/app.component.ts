@@ -23,6 +23,7 @@ export class AppComponent implements OnInit{
   private postUrl:string = this.baseURL + '/room/reservation/v1';
   //Defined a string variable 'welcomeUrl' that holds the complete URL for the 'welcome' GET mapping API endpoint.
   private welcomeUrl:string = this.baseURL + '/api/welcome';
+  private timeZoneUrl:string = this.baseURL + '/api/timezone';
   public submitted!:boolean;
   roomsearch! : FormGroup;
   rooms! : Room[];
@@ -33,9 +34,14 @@ export class AppComponent implements OnInit{
   // The 'getWelcome()' method sends a GET request to the 'welcomeUrl' and expects a response of type string in JSON format.
 
   welcomeMessages!:string[];
+  timeZone!:string[];
 
   getWelcome(): Observable<string> {
     return this.httpClient.get<string>(this.welcomeUrl,{responseType:'text' as 'json'});
+  }
+
+  getTimeZone(): Observable<string> {
+    return this.httpClient.get(this.timeZoneUrl, {responseType:'text'});
   }
 
     ngOnInit(){
@@ -60,6 +66,12 @@ export class AppComponent implements OnInit{
       this.getWelcome().subscribe(
         (response) => {
           this.welcomeMessages = JSON.parse(response);
+        }
+      );
+
+      this.getTimeZone().subscribe(
+        (response) => {
+          this.timeZone = JSON.parse(response);
         }
       );
   }

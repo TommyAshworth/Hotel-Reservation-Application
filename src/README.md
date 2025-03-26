@@ -254,6 +254,79 @@ Line 18: Use ngFor to iterate through messages array and display each message
 <strong>Price: {{room.price | currency:'€'}}</strong>
 
 ```
+# Task B3:
+
+-Created `TimeZone.java` interface and a `TimeZoneImpl.java` file
+
+`TimeZone.java`
+
+```
+package edu.wgu.d387_sample_code.convertor;
+
+public interface TimeZone {
+    String convertTimeZones();
+}
+
+
+```
+`TimeZoneImpl.java`
+
+```
+package edu.wgu.d387_sample_code.convertor;
+
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.core.io.ClassPathResource;
+
+import java.io.InputStream;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.Properties;
+import java.util.concurrent.ExecutorService;
+
+import static java.util.concurrent.Executors.newFixedThreadPool;
+
+@SpringBootApplication
+public class TimeZoneImpl implements CommandLineRunner {
+
+    public static void main(String[] args) {
+        SpringApplication.run(TimeZone.class, args);
+    }
+
+    public void run(String... args) throws Exception {
+        // Time Zones
+        ZoneId zEastern=ZoneId.of("America/New_York");
+        ZoneId zMountain=ZoneId.of("America/Cheyenne");
+        ZoneId zUTC=ZoneId.of("UTC");
+        ZoneId zoneId=ZoneId.systemDefault();
+
+        //Local Time
+        LocalDateTime localDateTime=LocalDateTime.now();
+        ZonedDateTime zonedDateTime = localDateTime.atZone(zoneId);
+        String timeEastern, timeMountain, timeUTC;
+        // Eastern Time
+        ZonedDateTime zonedDateTimeEastern=zonedDateTime.withZoneSameInstant(zEastern);
+        timeEastern = "Eastern time (ET): " + zonedDateTimeEastern.toLocalDateTime().toString();
+
+        // Mountain Time
+        ZonedDateTime zonedDateTimeMountain=zonedDateTime.withZoneSameInstant(zMountain);
+        timeMountain = "Mountain time (MT): " + zonedDateTimeMountain.toLocalDateTime().toString();
+
+        ZonedDateTime zonedDateTimeUTC=zonedDateTime.withZoneSameInstant(zUTC);
+        timeUTC = "UTC time (UT): " + zonedDateTimeUTC.toLocalDateTime().toString();
+
+        String result = timeEastern + "\n" + timeMountain + "\n" + timeUTC;
+
+        System.out.println(result);
+    }
+
+}
+
+
+```
+
 
 
 

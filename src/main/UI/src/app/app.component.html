@@ -23,8 +23,12 @@
 <main id="wrapper">
   <div class="scene" id="welcome">
     <article class="content">
-
-
+      <div class="mb-5">
+        <h3 class="mb-2 date">Landon Hotel live presentation on <br/>{{timeZone[0] | date: 'longDate'}} at:</h3>
+        <span class="time">ET: {{timeZone[0] | date:'shortTime'}} </span>
+        <span class="time">MT: {{timeZone[1] | date:'shortTime'}} </span>
+        <span class="time">UTC: {{timeZone[2] | date:'shortTime'}} </span>
+      </div>
 
       <div class="row">
         <div class=""col-12>
