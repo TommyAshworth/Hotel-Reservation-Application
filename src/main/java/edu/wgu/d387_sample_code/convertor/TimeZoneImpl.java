@@ -32,7 +32,7 @@ public class TimeZoneImpl implements TimeZone {
         //Easter time
         ZoneId eastern = ZoneId.of("America/New_York");
         //Mountain Time
-        ZoneId mountain = ZoneId.of("America/Phoenix");
+        ZoneId mountain = ZoneId.of("America/Denver");
         // Coordinated Universal Time
         ZoneId utc = ZoneId.of("UTC");
         //Systems current time zone
@@ -42,7 +42,6 @@ public class TimeZoneImpl implements TimeZone {
         LocalDateTime localDateTime = LocalDateTime.now();
         //Convert the local time into system's default time zone.
         ZonedDateTime zonedDateTime = localDateTime.atZone(zoneId);
-        this.times.add(localDateTime);
 
         //Convert to Eastern time and add to the list.
         ZonedDateTime easternZone = zonedDateTime.withZoneSameInstant(eastern);

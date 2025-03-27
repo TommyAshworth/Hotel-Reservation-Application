@@ -326,10 +326,91 @@ public class TimeZoneImpl implements CommandLineRunner {
 
 
 ```
+-Modified and corrected `app.component.html`
+Added <br/> elements to each line 
+```
+<strong>Room #: {{room.roomNumber}}</strong><br/>
+                  <strong>Price: ${{room.price}}</strong><br/>
+                  <strong>Price: {{room.price | currency:'CAD'}}</strong><br/>
+                  <strong>Price: {{room.price | currency:'EUR'}}</strong><br/>
+```
 
+-Modified and made changes to `TimeZoneImpl`
+Deleted line 45: 
 
+```
+this.times.add(localDateTime);
 
+```
 
+-Changed line 35 `TimeZoneImpl`
+Was not displaying appropriate time zone for Mountain Time, changed the City
+```
+ZoneId mountain = ZoneId.of("America/Denver");
+```
+# Task C1:
+-Created Dockerfile, created image and tested the docker file. It is running.
 
+```
+2025-03-26 21:01:08 
+2025-03-26 21:01:08   .   ____          _            __ _ _
+2025-03-26 21:01:08  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+2025-03-26 21:01:08 ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+2025-03-26 21:01:08  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+2025-03-26 21:01:08   '  |____| .__|_| |_|_| |_\__, | / / / /
+2025-03-26 21:01:08  =========|_|==============|___/=/_/_/_/
+2025-03-26 21:01:08  :: Spring Boot ::                (v2.7.2)
+2025-03-26 21:01:08 
+2025-03-26 21:01:08 2025-03-27 01:01:08.264  INFO 1 --- [           main] e.w.d.D387SampleCodeApplication          : Starting D387SampleCodeApplication v0.0.2-SNAPSHOT using Java 17.0.2 on 1eb0afee3f90 with PID 1 (/app/app.jar started by root in /app)
+2025-03-26 21:01:08 2025-03-27 01:01:08.267  INFO 1 --- [           main] e.w.d.D387SampleCodeApplication          : No active profile set, falling back to 1 default profile: "default"
+2025-03-26 21:01:09 2025-03-27 01:01:09.141  INFO 1 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-03-26 21:01:09 2025-03-27 01:01:09.219  INFO 1 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 66 ms. Found 2 JPA repository interfaces.
+2025-03-26 21:01:09 2025-03-27 01:01:09.997  INFO 1 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2025-03-26 21:01:10 2025-03-27 01:01:10.012  INFO 1 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-03-26 21:01:10 2025-03-27 01:01:10.012  INFO 1 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.65]
+2025-03-26 21:01:10 2025-03-27 01:01:10.116  INFO 1 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-03-26 21:01:10 2025-03-27 01:01:10.116  INFO 1 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1795 ms
+2025-03-26 21:01:10 2025-03-27 01:01:10.164  INFO 1 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-03-26 21:01:10 2025-03-27 01:01:10.509  INFO 1 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-03-26 21:01:10 2025-03-27 01:01:10.521  INFO 1 --- [           main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:file:~/spring-boot-h2-d387F'
+2025-03-26 21:01:10 2025-03-27 01:01:10.671  INFO 1 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-03-26 21:01:10 2025-03-27 01:01:10.779  INFO 1 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.10.Final
+2025-03-26 21:01:11 2025-03-27 01:01:11.025  INFO 1 --- [           main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2025-03-26 21:01:11 2025-03-27 01:01:11.189  INFO 1 --- [           main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2025-03-26 21:01:11 Hibernate: create table reservation (id bigint not null, checkin date not null, checkout date not null, room_id bigint not null, primary key (id))
+2025-03-26 21:01:11 Hibernate: create table room (id bigint not null, price varchar(255), room_number integer, primary key (id))
+2025-03-26 21:01:11 Hibernate: create table room_reservation_entity_list (room_entity_id bigint not null, reservation_entity_list_id bigint not null)
+2025-03-26 21:01:11 Hibernate: alter table room_reservation_entity_list drop constraint if exists UK_h6i55s733sb2tdxct0osbolge
+2025-03-26 21:01:11 Hibernate: alter table room_reservation_entity_list add constraint UK_h6i55s733sb2tdxct0osbolge unique (reservation_entity_list_id)
+2025-03-26 21:01:11 Hibernate: create sequence hibernate_sequence start with 1 increment by 1
+2025-03-26 21:01:11 Hibernate: alter table reservation add constraint FKm8xumi0g23038cw32oiva2ymw foreign key (room_id) references room
+2025-03-26 21:01:11 Hibernate: alter table room_reservation_entity_list add constraint FKc3rrge7c3u2skn2x054yfun3j foreign key (reservation_entity_list_id) references reservation
+2025-03-26 21:01:11 Hibernate: alter table room_reservation_entity_list add constraint FKk8erroom3f2oqbvkasu2iytke foreign key (room_entity_id) references room
+2025-03-26 21:01:11 2025-03-27 01:01:11.920  INFO 1 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2025-03-26 21:01:11 2025-03-27 01:01:11.927  INFO 1 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-03-26 21:01:12 2025-03-27 01:01:12.279  WARN 1 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-03-26 21:01:12 2025-03-27 01:01:12.510  INFO 1 --- [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2025-03-26 21:01:12 2025-03-27 01:01:12.811  INFO 1 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2025-03-26 21:01:12 2025-03-27 01:01:12.826  INFO 1 --- [           main] e.w.d.D387SampleCodeApplication          : Started D387SampleCodeApplication in 5.048 seconds (JVM running for 6.004)
+2025-03-26 21:01:12 Bootstrapping data: 
+2025-03-26 21:01:12 Hibernate: select roomentity0_.id as id1_1_0_, roomentity0_.price as price2_1_0_, roomentity0_.room_number as room_num3_1_0_ from room roomentity0_ where roomentity0_.id=?
+2025-03-26 21:01:12 Hibernate: call next value for hibernate_sequence
+2025-03-26 21:01:12 Hibernate: insert into room (price, room_number, id) values (?, ?, ?)
+2025-03-26 21:01:12 Hibernate: select roomentity0_.id as id1_1_0_, roomentity0_.price as price2_1_0_, roomentity0_.room_number as room_num3_1_0_ from room roomentity0_ where roomentity0_.id=?
+2025-03-26 21:01:12 Hibernate: call next value for hibernate_sequence
+2025-03-26 21:01:12 Hibernate: insert into room (price, room_number, id) values (?, ?, ?)
+2025-03-26 21:01:12 Hibernate: select roomentity0_.id as id1_1_0_, roomentity0_.price as price2_1_0_, roomentity0_.room_number as room_num3_1_0_ from room roomentity0_ where roomentity0_.id=?
+2025-03-26 21:01:12 Hibernate: call next value for hibernate_sequence
+2025-03-26 21:01:12 Hibernate: insert into room (price, room_number, id) values (?, ?, ?)
+2025-03-26 21:01:13 Hibernate: select roomentity0_.id as id1_1_, roomentity0_.price as price2_1_, roomentity0_.room_number as room_num3_1_ from room roomentity0_
+2025-03-26 21:01:13 Hibernate: select reservatio0_.room_entity_id as room_ent1_2_0_, reservatio0_.reservation_entity_list_id as reservat2_2_0_, reservatio1_.id as id1_0_1_, reservatio1_.checkin as checkin2_0_1_, reservatio1_.checkout as checkout3_0_1_, reservatio1_.room_id as room_id4_0_1_, roomentity2_.id as id1_1_2_, roomentity2_.price as price2_1_2_, roomentity2_.room_number as room_num3_1_2_ from room_reservation_entity_list reservatio0_ inner join reservation reservatio1_ on reservatio0_.reservation_entity_list_id=reservatio1_.id inner join room roomentity2_ on reservatio1_.room_id=roomentity2_.id where reservatio0_.room_entity_id=?
+2025-03-26 21:01:13 Hibernate: select reservatio0_.room_entity_id as room_ent1_2_0_, reservatio0_.reservation_entity_list_id as reservat2_2_0_, reservatio1_.id as id1_0_1_, reservatio1_.checkin as checkin2_0_1_, reservatio1_.checkout as checkout3_0_1_, reservatio1_.room_id as room_id4_0_1_, roomentity2_.id as id1_1_2_, roomentity2_.price as price2_1_2_, roomentity2_.room_number as room_num3_1_2_ from room_reservation_entity_list reservatio0_ inner join reservation reservatio1_ on reservatio0_.reservation_entity_list_id=reservatio1_.id inner join room roomentity2_ on reservatio1_.room_id=roomentity2_.id where reservatio0_.room_entity_id=?
+2025-03-26 21:01:13 Hibernate: select reservatio0_.room_entity_id as room_ent1_2_0_, reservatio0_.reservation_entity_list_id as reservat2_2_0_, reservatio1_.id as id1_0_1_, reservatio1_.checkin as checkin2_0_1_, reservatio1_.checkout as checkout3_0_1_, reservatio1_.room_id as room_id4_0_1_, roomentity2_.id as id1_1_2_, roomentity2_.price as price2_1_2_, roomentity2_.room_number as room_num3_1_2_ from room_reservation_entity_list reservatio0_ inner join reservation reservatio1_ on reservatio0_.reservation_entity_list_id=reservatio1_.id inner join room roomentity2_ on reservatio1_.room_id=roomentity2_.id where reservatio0_.room_entity_id=?
+2025-03-26 21:01:13 Printing out data: 
+2025-03-26 21:01:13 405
+2025-03-26 21:01:13 406
+2025-03-26 21:01:13 407
+
+```
 
 
